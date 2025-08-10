@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VMHSS MLP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>VMHSS MLP</h1>
+
+  <div class="container">
+
+    <!-- Exam Selection Section -->
+<div id="examSection" style="margin-bottom: 20px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+  <h2>Select Exam</h2>
+  <select id="examSelect" onchange="changeExam()">
+    <option value="">-- Select Exam --</option>
+
+    <!-- Cycle Test 1 to 10 -->
+    <optgroup label="Cycle Tests">
+      <option value="cycleTest1">Cycle Test 1</option>
+      <option value="cycleTest2">Cycle Test 2</option>
+      <option value="cycleTest3">Cycle Test 3</option>
+      <option value="cycleTest4">Cycle Test 4</option>
+      <option value="cycleTest5">Cycle Test 5</option>
+      <option value="cycleTest6">Cycle Test 6</option>
+      <option value="cycleTest7">Cycle Test 7</option>
+      <option value="cycleTest8">Cycle Test 8</option>
+      <option value="cycleTest9">Cycle Test 9</option>
+      <option value="cycleTest10">Cycle Test 10</option>
+    </optgroup>
+
+    <!-- Mid Terms -->
+    <optgroup label="Mid Terms">
+      <option value="midTerm1">Mid Term 1</option>
+      <option value="midTerm2">Mid Term 2</option>
+      <option value="midTerm3">Mid Term 3</option>
+    </optgroup>
+
+    <!-- Other exams -->
+    <option value="quarterly">Quarterly</option>
+    <option value="halfYearly">Half Yearly</option>
+    <option value="annual">Annual</option>
+  </select>
+</div>
+
+
+      <!-- For cycle tests and midterms: select test number -->
+      <div id="subExamNumberDiv" style="margin-top: 10px; display:none;">
+        <label for="subExamNumber">Select Test Number</label>
+        <select id="subExamNumber" onchange="loadStudentsForSelectedExam()">
+          <!-- Dynamically populated -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Student List Section -->
+    <div id="studentList" style="width: 35%;">
+      <h2>Student List</h2>
+      <button onclick="addStudent()">Add Student</button>
+      <ul id="list"></ul>
+      <div id="summaryInfo"></div>
+    </div>
+
+    <!-- Mark Entry Form -->
+    <div id="markForm" style="width: 60%;">
+      <button onclick="printFullMarkList()">🖨️ Print Mark List</button>
+      <h2>Enter Student Marks</h2>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Student Name" />
+
+      <div class="extra-fields">
+        <div>
+          <label for="class">Class</label>
+          <select id="class" onchange="updateSectionOptions()">
+            <option value="">Select Class</option>
+            <!-- 1 to 12 -->
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+            <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+            <option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="section">Section</label>
+          <select id="section" onchange="updateSubjectFields()">
+            <option value="">Select Section</option>
+            <!-- Dynamically filled -->
+          </select>
+        </div>
+      </div>
+
+      <div id="marksInputs"></div>
+
+      <p id="percentageDisplay" style="font-weight:bold; margin-top:10px;"></p>
+
+      <button onclick="saveMarks()">Save Marks</button>
+      <button onclick="downloadExcel()">Export to Excel</button>
+      <button onclick="downloadPDF()">Export to PDF</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
