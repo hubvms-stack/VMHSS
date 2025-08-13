@@ -2,59 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VMHSS MLP - Teacher Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Pro Edition - VMHSS MLP</title>
 
-  <!-- Main stylesheet -->
+  <!-- Google Fonts + Main CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* quick layout helper so merged HTML looks sensible before CSS file applied */
     body { font-family: Poppins, Arial, sans-serif; margin:0; padding:12px; background:linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); color:#fff; }
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px;}
-    .container{display:flex;gap:16px;flex-wrap:wrap;max-width:1200px;margin:10px auto}
-    .card{background:rgba(255,255,255,0.08);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    input,select,button{font-family:inherit}
-    .hidden{display:none}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px; background:#2c3e50; color:#fff; border-radius:10px;}
+    .container{display:flex; gap:20px; flex-wrap:wrap; max-width:1200px; margin:10px auto;}
+    .card, .student-list, .student-form, .analytics-section{background:rgba(255,255,255,0.08); padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.12);}
+    .student-list, .student-form, .analytics-section{flex:1 1 300px; min-width:300px; max-height:600px; overflow-y:auto;}
+    h2{margin-top:0;}
+    input, select, button{font-family:inherit; padding:6px; border-radius:6px; border:none;}
+    button{cursor:pointer; background:#3498db; color:#fff;}
+    button:hover{background:#2980b9;}
+    ul{list-style:none; padding:0; margin:0;}
+    li{padding:8px; border-bottom:1px solid rgba(255,255,255,0.2); display:flex; justify-content:space-between; align-items:center;}
+    .marks-inputs div{margin-bottom:10px;}
+    .marks-inputs label{display:inline-block; width:120px;}
+    .marks-inputs input, .marks-inputs select{width:100px;}
+    .controls{margin-top:10px; display:flex; flex-wrap:wrap; gap:10px;}
+    @media (max-width:800px){.container{flex-direction:column;}}
   </style>
 </head>
+
 <body>
-  <!-- Header + Top Controls (Teacher Edition UI) -->
-  <header style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-    <h1>VMHSS MLP - Teacher Tools</h1>
-
+  <!-- Header with top controls -->
+  <header>
+    <h1>Teacher Pro Edition - VMHSS Marks Manager</h1>
     <div id="topControls" style="display:flex;gap:8px;align-items:center;">
-      <input id="searchBox" type="search" placeholder="🔎 Search student by name or roll..." aria-label="Search students" />
-      <button id="toggleBulkBtn" onclick="toggleBulkMode()">Bulk Entry</button>
-      <button id="copyPrevBtn" onclick="copyPreviousExam()">Copy Prev Exam</button>
-      <button id="autoPresentBtn" onclick="markAllPresent()">Mark All Present</button>
-
-      <!-- dark mode switch -->
-      <label class="switch" title="Dark mode" style="display:inline-flex; align-items:center;">
-        <input id="darkModeToggle" type="checkbox" onchange="toggleDarkMode()">
-        <span class="slider round" style="margin-left:6px;"></span>
-      </label>
-
+      <input id="searchBox" type="search" placeholder="🔎 Search student by name or roll..." />
+      <button onclick="toggleBulkMode()">Bulk Entry</button>
+      <button onclick="copyPreviousExam()">Copy Prev Exam</button>
+      <button onclick="markAllPresent()">Mark All Present</button>
+      <label class="switch" title="Dark mode"><input id="darkModeToggle" type="checkbox" onchange="toggleDarkMode()"><span class="slider round" style="margin-left:6px;"></span></label>
       <button onclick="downloadBackup()">Backup (JSON)</button>
       <button onclick="deleteAllStudents()">Delete All</button>
     </div>
   </header>
 
   <!-- Main container -->
-  <main class="container" style="padding:12px; gap:20px;">
-    <!-- Left column: exam selector & student list -->
+  <main class="container">
+    <!-- Left Column: Exams + Student List -->
     <section style="width:35%; min-width:300px;">
-      <!-- Exam Selection Section (original options preserved) -->
-      <div id="examSection" style="margin-bottom: 12px; padding: 12px;">
+      <!-- Exam Selector -->
+      <div id="examSection" style="margin-bottom:12px;">
         <h2>Select Exam</h2>
-        <!-- NOTE: kept the original detailed exam options so existing JS continues to work -->
-        <div style="display:flex; gap:8px; align-items:center;">
-          <select id="examSelect" onchange="changeExam()" aria-label="Select exam" style="flex:1; padding:8px; border-radius:6px;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <select id="examSelect" onchange="changeExam()" style="flex:1;">
             <option value="">-- Select Exam --</option>
-
-            <!-- Cycle Test 1 to 10 -->
             <optgroup label="Cycle Tests">
               <option value="cycleTest1">Cycle Test 1</option>
               <option value="cycleTest2">Cycle Test 2</option>
@@ -67,37 +66,24 @@
               <option value="cycleTest9">Cycle Test 9</option>
               <option value="cycleTest10">Cycle Test 10</option>
             </optgroup>
-
-            <!-- Mid Terms -->
             <optgroup label="Mid Terms">
               <option value="midTerm1">Mid Term 1</option>
               <option value="midTerm2">Mid Term 2</option>
               <option value="midTerm3">Mid Term 3</option>
             </optgroup>
-
-            <!-- Other exams -->
             <option value="quarterly">Quarterly</option>
             <option value="halfYearly">Half Yearly</option>
             <option value="annual">Annual</option>
           </select>
-
-          <!-- New: Copy-from exam select (shows previously saved exams) -->
-          <select id="copyExamSelect" style="width:220px; padding:8px; border-radius:6px;">
+          <select id="copyExamSelect" style="width:220px;">
             <option value="">Copy students from...</option>
-            <!-- populated by JS -->
           </select>
-          <button id="copyNamesBtn" style="padding:8px 10px; border-radius:6px;">Copy Names</button>
+          <button onclick="copyNamesFromSelectedExam()">Copy Names</button>
         </div>
-
-        <!-- subExamNumberDiv kept (hidden by default) for compatibility with alternate logic -->
         <div id="subExamNumberDiv" style="margin-top:8px; display:none;">
           <label for="subExamNumber">Select Test Number</label>
-          <select id="subExamNumber" onchange="loadStudentsForSelectedExam()" style="width:100%; padding:8px; border-radius:6px;">
-            <!-- Dynamically populated if needed -->
-          </select>
+          <select id="subExamNumber" onchange="loadStudentsForSelectedExam()"></select>
         </div>
-
-        <!-- quick exports -->
         <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
           <button onclick="downloadExcel()">Export CSV</button>
           <button onclick="downloadPDF()">Export PDF</button>
@@ -105,155 +91,107 @@
         </div>
       </div>
 
-      <!-- Student List Section (original) -->
-      <div id="studentList" style="background: rgba(255,255,255,0.04); padding:12px; border-radius:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
+      <!-- Student List -->
+      <div id="studentList">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
           <h2>Student List</h2>
           <div style="display:flex; gap:8px;">
             <button onclick="addStudent()">Add Student</button>
             <button onclick="openImportDialog()">Import CSV/JSON</button>
           </div>
         </div>
-
-        <div style="margin-top:8px;">
-          <ul id="list" style="list-style:none;padding:0;margin:0; max-height:60vh; overflow:auto;"></ul>
-        </div>
-
+        <ul id="list" style="max-height:60vh; overflow:auto;"></ul>
         <div id="summaryInfo" style="margin-top:12px;"></div>
-
-        <!-- Advanced controls (left) -->
-        <div id="advancedLeft" style="margin-top:12px; display:none;">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button id="toggleBulkBtn2" onclick="toggleBulkMode()">Bulk Entry</button>
-            <button id="copyPrevBtn2" onclick="copyPreviousExam()">Copy Prev Exam</button>
-            <button id="markAllPresentBtn2" onclick="markAllPresent()">Mark All Present</button>
-            <button id="quickFillBtn2" onclick="applyQuickFill()">Default Marks</button>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Right column: mark form, bulk entry, charts -->
+    <!-- Right Column: Marks Form / Bulk Entry / Analytics -->
     <section style="width:60%; min-width:320px;">
-      <!-- Mark Entry Form (preserves original fields and buttons; extended UI kept) -->
-      <div id="markForm" style="background: rgba(255,255,255,0.04); padding:12px; border-radius:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h2>Enter Student Marks</h2>
-          <div style="display:flex; gap:8px;">
-            <button onclick="printFullMarkList()">🖨️ Print</button>
-            <button onclick="autoSaveToggle()" id="autoSaveBtn">Auto Save: Off</button>
-          </div>
+      <!-- Marks Form -->
+      <div id="markForm">
+        <h2>Enter Student Marks</h2>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="text" id="name" placeholder="Student Name">
+          <select id="class" onchange="updateSectionOptions()">
+            <option value="">Select Class</option>
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+            <option value="7">7</option><option value="8">8</option>
+            <option value="9">9</option><option value="10">10</option>
+            <option value="11">11</option><option value="12">12</option>
+          </select>
+          <select id="section" onchange="updateSubjectFields()">
+            <option value="">Select Section</option>
+          </select>
         </div>
 
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Student Name" />
+        <div id="marksInputs"></div>
+        <p id="percentageDisplay" style="font-weight:bold;"></p>
 
-        <div class="extra-fields">
-          <div>
-            <label for="class">Class</label>
-            <select id="class" onchange="updateSectionOptions()">
-              <option value="">Select Class</option>
-              <!-- 1 to 12 -->
-              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-              <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
-              <option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="section">Section</label>
-            <select id="section" onchange="updateSubjectFields()">
-              <option value="">Select Section</option>
-              <!-- dynamically filled -->
-            </select>
-          </div>
-        </div>
-
-        <div id="marksInputs" style="margin-top:10px;"></div>
-
-        <p id="percentageDisplay" style="font-weight:bold; margin-top:10px;"></p>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div class="controls">
           <button onclick="saveMarks()">Save Marks</button>
-          <button id="saveNextBtn">Save & Next</button>
-          <button onclick="markAbsentToggle()">Toggle Absent</button>
-        </div>
-
-        <div style="margin-top:10px; font-size:14px; opacity:0.9;">
-          <small>Grades: A+ (≥90), A (≥75), B (≥60), C (≥45), D (&lt;45)</small>
+          <button onclick="saveAndNext()">Save & Next</button>
+          <button onclick="fillAbsentZero()">Fill Absent 0</button>
+          <button onclick="autoFillAttendance()">Mark All Present</button>
         </div>
       </div>
 
-      <!-- Bulk Entry Mode (hidden by default) -->
-      <div id="bulkEntry" style="margin-top:12px; display:none; background: rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h2>Bulk Entry Table</h2>
-          <div style="display:flex; gap:8px;">
-            <button onclick="applyQuickFill()">Quick Fill</button>
-            <button onclick="saveBulkChanges()">Save Bulk</button>
-          </div>
+      <!-- Bulk Entry -->
+      <div id="bulkEntry" style="margin-top:12px; display:none;">
+        <h2>Bulk Entry</h2>
+        <div style="overflow:auto; max-height:420px;">
+          <table id="bulkTable" style="width:100%; border-collapse:collapse;"></table>
         </div>
-
-        <div id="bulkTableWrap" style="overflow:auto; max-height:420px; margin-top:8px;">
-          <table id="bulkTable" style="width:100%; border-collapse:collapse; border:1px solid rgba(0,0,0,0.08);">
-            <!-- Generated dynamically by JS -->
-          </table>
+        <div class="controls">
+          <button onclick="applyQuickFill()">Quick Fill</button>
+          <button onclick="saveBulkChanges()">Save Bulk</button>
         </div>
       </div>
 
-      <!-- Chart / Exam Comparison -->
-      <div id="chartsCard" style="margin-top:12px; background: rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
+      <!-- Charts / Analytics -->
+      <div id="chartsCard" style="margin-top:12px;">
         <h2>Exam Comparison</h2>
-        <div id="chartControls" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <label for="compareExamA">Exam A</label>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <label>Exam A</label>
           <select id="compareExamA" onchange="updateComparisonChart()"></select>
-          <label for="compareExamB">Exam B</label>
+          <label>Exam B</label>
           <select id="compareExamB" onchange="updateComparisonChart()"></select>
           <button onclick="generateComparison()">Generate</button>
         </div>
-        <div style="margin-top:12px;">
-          <canvas id="comparisonChart" width="800" height="250"></canvas>
+        <canvas id="comparisonChart" width="800" height="250"></canvas>
+        <div class="controls" style="margin-top:8px;">
+          <button onclick="generateProgressReport()">Student Progress Report</button>
+          <button onclick="generateClassSummary()">Class Summary</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Hidden file input for import -->
-  <input id="importFile" type="file" accept=".csv,application/vnd.ms-excel,application/json" style="display:none" onchange="handleImportFile(event)"/>
+  <!-- Hidden import input -->
+  <input id="importFile" type="file" accept=".csv,application/json" style="display:none" onchange="handleImportFile(event)" />
 
-  <!-- Placeholder for modals or messages -->
-  <div id="modalRoot" aria-hidden="true"></div>
+  <!-- Placeholder for modals -->
+  <div id="modalRoot"></div>
 
-  <!-- Script placeholder (you'll replace/update script.js with the integrated version) -->
   <script src="script.js"></script>
 
-  <!-- small snippet to wire the Copy Names UI to populate copyExamSelect on load (safe no-op if real JS overwrites) -->
+  <!-- Auto-populate copy exam select -->
   <script>
     (function populateCopySelect() {
       try {
         const sel = document.getElementById('copyExamSelect');
         if (!sel) return;
-        // scan localStorage keys that look like exam_ or exam names (best-effort)
         const list = [];
         for (let i=0;i<localStorage.length;i++){
           const k = localStorage.key(i);
           if (!k) continue;
-          // accept keys that start with exam_ or that look like cycleTest/midTerm/quarterly
-          if (k.startsWith('exam_')) {
-            const nm = k.replace(/^exam_/, '');
-            list.push(nm);
-          } else if (/^(cycleTest|midTerm|quarterly|halfYearly|annual)/i.test(k)) {
-            list.push(k);
-          }
+          if (k.startsWith('exam_') || /^(cycleTest|midTerm|quarterly|halfYearly|annual)/i.test(k)) list.push(k.replace(/^exam_/, ''));
         }
-        // dedupe & sort
-        const unique = Array.from(new Set(list)).sort();
-        unique.forEach(name => {
-          const opt = document.createElement('option');
-          opt.value = name; opt.textContent = name;
+        Array.from(new Set(list)).sort().forEach(name => {
+          const opt = document.createElement('option'); opt.value = name; opt.textContent = name;
           sel.appendChild(opt);
         });
-      } catch(e){ /* no-op */ }
+      } catch(e){console.warn(e);}
     })();
   </script>
 </body>
