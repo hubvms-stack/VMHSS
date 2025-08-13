@@ -42,7 +42,6 @@ function changeExam() {
   const examSelect = document.getElementById("examSelect");
   currentExam = examSelect.value;
 
-  // Show or hide sub exam number dropdown if needed
   const subExamNumberDiv = document.getElementById("subExamNumberDiv");
   const subExamNumberSelect = document.getElementById("subExamNumber");
 
