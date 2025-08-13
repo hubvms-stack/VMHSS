@@ -1,237 +1,252 @@
-/* ======== Body & Background with Animated Gradient ======== */
+/*******************************
+ * TEACHER PRO EDITION - CSS
+ *******************************/
+
+/* GLOBAL RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* BODY & BACKGROUND */
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
-    color: #fff;
-    font-size: 18px;
-    min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
+  background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  color: #fff;
+  padding: 12px;
 }
 
-@keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+/* DARK MODE */
+body.dark-mode {
+  background: #1e1e1e;
+  color: #fff;
 }
 
-/* ======== Headings ======== */
-h1, h2 {
-    text-align: center;
-    margin: 10px 0;
-    font-weight: bold;
-    color: #fff;
-    font-size: 28px;
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-/* ======== Container ======== */
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* CONTAINER */
 .container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: auto;
-    padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* ======== Student List ======== */
-#studentList {
-    width: 35%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    max-height: 80vh;
-    overflow-y: auto;
+/* SECTIONS */
+.student-list,
+.student-form,
+.analytics-section,
+#markForm,
+#bulkEntry,
+#chartsCard {
+  background: rgba(255,255,255,0.08);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  min-width: 300px;
+  flex: 1 1 300px;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
-/* ======== Mark Form ======== */
-#markForm {
-    width: 60%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    animation: fadeIn 1s ease-in-out;
-    max-height: 80vh;
-    overflow-y: auto;
+/* HEADINGS */
+h2 {
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 6px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* INPUTS & SELECTS */
+input[type=text],
+input[type=number],
+input[type=search],
+select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  margin-bottom: 8px;
 }
 
-/* ======== Student List Items ======== */
-.student {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    color: #000;
-    font-weight: bold;
-    font-size: 18px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    margin-bottom: 10px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: studentAppear 0.6s ease forwards;
+input::placeholder,
+select {
+  color: #eee;
 }
 
-@keyframes studentAppear {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.student:hover { background: rgba(255, 255, 255, 1); }
-
-/* ======== Labels ======== */
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-/* ======== Inputs and Selects ======== */
-input, select, button {
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-input[type="text"], input[type="number"], select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 4px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-/* ======== Buttons ======== */
+/* BUTTONS */
 button {
-    margin-top: 10px;
-    padding: 16px 24px;
-    font-size: 18px;
-    background: #ff3e3e;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.2s;
 }
 
 button:hover {
-    background: #cc1c1c;
-    transform: scale(1.05);
+  background: #2980b9;
 }
 
-/* ======== Extra Fields ======== */
-.extra-fields {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 10px;
+/* CONTROLS */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-/* ======== Table Styles ======== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+/* STUDENT LIST */
+#list {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
 }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+#list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-th {
-    background-color: #f0f0f0;
-    color: #000;
+/* MARKS INPUTS */
+.marks-inputs div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-/* ======== Highlight & Grade Colors ======== */
-.weak-subject { background-color: #ffcccc !important; }
-.grade-A { background-color: #d4edda; }
-.grade-B { background-color: #fff3cd; }
-.grade-C { background-color: #f8d7da; }
-
-/* ======== Search Bar ======== */
-#searchBar {
-    width: 300px;
-    max-width: 100%;
-    display: block;
-    margin: 10px auto;
+.marks-inputs label {
+  width: 40%;
 }
 
-/* ======== Bulk Entry Mode ======== */
-.bulk-entry-table input {
-    width: 60px;
-    text-align: center;
+.marks-inputs input {
+  width: 55%;
 }
 
-/* ======== Dark Mode ======== */
-.dark-mode {
-    background: #1e1e1e;
-    color: #f5f5f5;
+/* BULK TABLE */
+#bulkTableWrap {
+  overflow-x: auto;
 }
 
-.dark-mode table { border-color: #444; }
-.dark-mode th { background-color: #333; color: #fff; }
-.dark-mode button { background-color: #444; color: white; }
-.dark-mode button:hover { background-color: #666; }
-.dark-mode input, .dark-mode select {
-    background-color: #333;
-    color: white;
-    border-color: #555;
+#bulkTable {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* ======== Summary Info ======== */
-#summaryInfo, .summary-box {
-    padding: 16px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 12px;
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 22px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+#bulkTable th,
+#bulkTable td {
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
 }
 
-.dark-mode .summary-box { background: #2c2c2c; }
-
-/* ======== Chart Area ======== */
-.chart-container {
-    max-width: 800px;
-    margin: 20px auto;
+#bulkTable input[type=number] {
+  width: 60px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
 }
 
-/* ======== Mobile Responsive ======== */
-@media only screen and (max-width: 768px) {
-    .container { flex-direction: column; width: 100%; gap: 10px; }
-    #studentList, #markForm { width: 100% !important; margin-bottom: 20px; }
-    .extra-fields { flex-direction: column; gap: 10px; }
-    input, select, button { font-size: 16px; padding: 12px; }
-    h1, h2 { font-size: 22px; }
-    #summaryInfo { font-size: 18px; padding: 12px; }
-    .student { flex-direction: column; align-items: flex-start; font-size: 16px; }
+#bulkTable input[type=checkbox] {
+  width: 18px;
+  height: 18px;
 }
 
-/* ======== Print Styles ======== */
-@media print {
-    body { background: #fff !important; color: #000; font-size: 14px; }
-    button, #markForm, #summaryInfo, h2, .extra-fields, #examSelect { display: none !important; }
-    #studentList { width: 100% !important; background: none !important; box-shadow: none; color: #000; }
-    .student { background: none; color: #000; border: none; font-size: 16px; }
-    .student:hover { background: none; }
+/* PERCENTAGE DISPLAY */
+#percentageDisplay {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* CHARTS CARD */
+#chartsCard canvas {
+  width: 100% !important;
+  max-height: 250px;
+}
+
+/* MODALS & HIDDEN */
+.hidden {
+  display: none !important;
+}
+
+/* SEARCH BOX */
+#searchBox, #searchStudent {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+/* DARK MODE SPECIFIC */
+body.dark-mode .student-list,
+body.dark-mode .student-form,
+body.dark-mode .analytics-section,
+body.dark-mode #markForm,
+body.dark-mode #bulkEntry,
+body.dark-mode #chartsCard {
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+body.dark-mode button {
+  background: #1abc9c;
+}
+
+body.dark-mode button:hover {
+  background: #16a085;
+}
+
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
 }
